@@ -12,7 +12,7 @@ source:
   sha256: 55c5c141a564245b8f8fbe7698663c87a45a7333c2a2c56f06f811ab73b212dd
 
 build:
-  number: 2
+  number: 3
   script:
     - if: win
       then: |
@@ -22,24 +22,16 @@ build:
           --wrap-mode=nofallback ^
           --buildtype=release ^
           -Ddocumentation=disabled ^
-          -Dintrospection=disabled ^
           builddir
         ninja -v -C builddir -j %CPU_COUNT%
         ninja -C builddir install -j %CPU_COUNT%
-    - if: osx
-      then: |
-        # Define _DARWIN_C_SOURCE to expose POSIX.1-2008 functions like strnlen
-        export CFLAGS="${CFLAGS} -D_DARWIN_C_SOURCE"
     - if: unix
       then: |
-        cp -f ${BUILD_PREFIX}/bin/glib-mkenums ${PREFIX}/bin/glib-mkenums
-        cp -f ${BUILD_PREFIX}/bin/glib-genmarshal ${PREFIX}/bin/glib-genmarshal
         meson setup ${MESON_ARGS} \
             --prefix=$PREFIX \
             --default-library=shared \
             --wrap-mode=nofallback \
             -Ddocumentation=disabled \
-            -Dintrospection=disabled \
             builddir
         ninja -v -C builddir -j ${CPU_COUNT}
         ninja -C builddir install -j ${CPU_COUNT}
