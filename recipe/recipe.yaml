@@ -20,7 +20,6 @@ build:
           --prefix=%LIBRARY_PREFIX% ^
           --default-library=shared ^
           --wrap-mode=nofallback ^
-          --buildtype=release ^
           -Ddocumentation=disabled ^
           builddir
         ninja -v -C builddir -j %CPU_COUNT%
