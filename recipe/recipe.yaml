@@ -44,6 +44,7 @@ requirements:
     - pkg-config
     - gobject-introspection
     - glib
+    - zlib
   host:
     - glib
     - gobject-introspection
